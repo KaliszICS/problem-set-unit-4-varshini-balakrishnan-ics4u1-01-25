@@ -30,8 +30,18 @@ public class ExampleClass {
             System.out.println(arr[i]);
         }
         System.out.println("Deck size: " + d.size()); //PRINTS Deck size: 4
-        System.out.println("Drawn: " + d.draw()); //Draws Ace of Clubs (any top card)
+        System.out.println("Drawn: " + d.draw()); //Draws *(any top card after shuffle)*
         System.out.println("Current deck size: " + d.size()); //New deck size should print "Current deck size: 3"
+        Deck testDeck = new Deck();
+        System.out.println(testDeck.size());
+        System.out.println(testDeck.draw());
+        System.out.println(testDeck.draw());
+        System.out.println(testDeck.draw());
+        System.out.println(testDeck.draw());
+        Deck testDeck2 = new Deck ();
+        testDeck2.shuffle();
+        System.out.println("Shuffled! The top card drawn is: " + testDeck2.draw());
+        System.out.println(testDeck2.size()); //size after drawing a card: x - 1 where x <= 52.
         /* current output: 
         Test
         Queen of Hearts
@@ -46,15 +56,22 @@ public class ExampleClass {
         10 of Spades
         Jack of Diamonds
         After shuffling:
+        10 of Spades
         Ace of Clubs
         Queen of Hearts
-        10 of Spades
         Jack of Diamonds
         Deck size: 4
-        Drawn: Queen of Hearts
+        Drawn: 10 of Spades
         Current deck size: 3
+        52
+        Ace of Hearts
+        2 of Hearts
+        3 of Hearts
+        4 of Hearts
+        Shuffled! The top card drawn is: King of Hearts
+        51
 
-        Note: Shuffling is random so it'll print different outputs every time. (obviously...)
+        Note: Shuffling is random so it'll print different outputs every time and this is js one instance
         */
     }
 	
@@ -138,4 +155,15 @@ class Deck {
             cards[random] = temp;
         }
     }
+      public void addCard(Card card) {
+            if (card == null) {
+                return;
+            }
+            Card[] newArr = new Card[cards.length + 1];
+            for (int i = 0; i < cards.length; i ++) {
+                newArr[i] = cards[i];
+            }
+            newArr[cards.length] = card;
+            cards = newArr;
+        }
 }
