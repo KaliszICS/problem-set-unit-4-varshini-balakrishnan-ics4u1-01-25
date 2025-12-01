@@ -1,7 +1,8 @@
 
 //option 3 or 2 (Still deciding)
 /* Sources : https://www.britannica.com/topic/playing-card/National-decks 
-inspirations: https://stackoverflow.com/questions/65115441/java-shuffle-deck-using-math-random */
+https://intranet.missouriwestern.edu/cas/wp-content/uploads/sites/17/2020/05/Standard-Deck-of-Cards.pdf
+https://stackoverflow.com/questions/65115441/java-shuffle-deck-using-math-random */
 public class ExampleClass {
     public static void main(String[] args) {
         System.out.println("Test");
@@ -14,7 +15,7 @@ public class ExampleClass {
         System.out.println(c.getName()); //PRINTS Queen
         System.out.println(c.getSuit()); //PRINTS Hearts
         System.out.println(c.getValue()); // PRINTS 12
-        System.out.println(c.equals(c2)); //PRINTS true
+        System.out.println(c.equals(c2)); //PRINTS false
         System.out.println(c.equals(null)); //PRINTS false
         Card[] arr = {c, c2, c3, c4};
         Deck d = new Deck(arr);
@@ -37,7 +38,7 @@ public class ExampleClass {
         Queen
         Hearts 
         12
-        true
+        false
         false
         Prior to SHuffling: 
         Queen of Hearts
@@ -51,7 +52,7 @@ public class ExampleClass {
         Jack of Diamonds
         Deck size: 4
         Drawn: Queen of Hearts
-        Current deck size: 1
+        Current deck size: 3
 
         Note: Shuffling is random so it'll print different outputs every time. (obviously...)
         */
@@ -64,10 +65,10 @@ private String name;
 private String suit;
 private int value;
 
-Card(String n, String s, int v) {
-    name = n;
-    suit = s;
-    value = v;
+Card(String a, String b, int f) {
+    name = a;
+    suit = b;
+    value = f;
 }
 public String toString() {
     return name + " of " + suit;
@@ -100,6 +101,19 @@ class Deck {
     public Deck(Card[] c) {
         cards = c;
     }
+    public Deck () {
+        cards = new Card[52];
+        String[] names = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+        String[] suits = {"Hearts", "Clubs", "Diamonds", "Spades"};
+     int index = 0; 
+    for (int a = 0; a < suits.length; a++) {
+        for (int b = 0; b < names.length; b++) {
+            int value = b + 1;
+            cards[index] = new Card(names[b], suits[a], value);
+            index++;
+        }
+    }
+    };
     public int size() {
         return cards.length;
     }
