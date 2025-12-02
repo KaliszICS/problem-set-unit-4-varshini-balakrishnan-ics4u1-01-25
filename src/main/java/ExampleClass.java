@@ -211,5 +211,43 @@ class Deck {
         public Card[] getPile() {
             return pile;
         }
+    public void addCard(Card card) {
+        if (card == null) {
+            return;
+        }
+
+        Card[] newArr = new Card[pile.length + 1];
+        for(int i = 0; i < pile.length; i++) {
+            newArr[i] = pile[i];
+        }
+        newArr[pile.length] = card;
+        pile = newArr;
     }
+    public Card removeCard(Card card) {
+        if (card == null) { //like aforementioned, nothing given = nothing that we can remove
+            return null;
+        }
+        int index = -1;
+        for (int i = 0; i < pile.length; i++) {
+            if(pile[i].equals(card) && index == -1) {
+                index = i;
+            }
+            }
+            if (index == -1) {
+                return null;
+            }
+            Card removed = pile[index];
+            Card[] newArr = new Card[pile.length - 1];
+            int index1 = 0;
+            for (int i = 0; i < pile.length; i++) {
+                if ( i!= index) {
+                    newArr[index1] = pile[i];
+                    index1++;
+                }
+            }
+            pile = newArr;
+            return removed;
+        }
+    }
+    
 }
