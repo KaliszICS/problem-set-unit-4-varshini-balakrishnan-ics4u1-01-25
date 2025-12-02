@@ -84,6 +84,18 @@ public class ExampleClass {
         one.draw(testDeck); //draws two times
         System.out.println("Player 1's new hand size: " + one.size());
 
+        two.discardCard(c2, discPile);
+        System.out.println(discPile.size());
+
+        System.out.println(two.size());
+        boolean work = two.returnCard(c3, d);
+        System.out.println(work);
+        System.out.println(two.size());
+        System.out.println(d.size());
+
+        System.out.println("Ready Player 1!: " + one.toString());
+        System.out.println("Ready Player 2!: " + two.toString());
+
         /* current output: 
         Test
         Queen of Hearts
@@ -127,6 +139,13 @@ public class ExampleClass {
         Player two: Firefly, 17, 4
         Player 1's hand size: 0
         Player 1's new hand size: 2
+        1
+        3
+        true
+        2
+        4
+        Ready Player 1!: Kafka, 23, 5 of Hearts, 6 of Hearts *
+        Ready Player 2!: Firefly, 17, Queen of Hearts, Jack of Diamonds *
 
         *random* Note: Shuffling is random so it'll print different outputs every time and this is just one instance
         */
@@ -351,6 +370,64 @@ class Player {
         }
     newHand[hand.length] = drawn;
     hand = newHand;
+    }
+    public void discardCard(Card card, DiscardPile discardPile) {
+        if (card == null || discardPile == null) {
+            return;
+        }
+        int index = -1;
+        for (int i = 0; i < hand.length; i ++) {
+            if (hand[i].equals(card)) {
+                index = i;
+            }
+        }
+        if (index == -1) {
+            return;
+        }
+        discardPile.addCard(card); //adds card to discard pile
+        Card[] newHand = new Card[hand.length - 1];
+        int j = 0;
+        for (int i = 0; i < hand.length; i ++) {
+            if (i != index) {
+                newHand[j] = hand[i];
+                j++;
+            }
+        }
+        hand = newHand;
+    }
+    public boolean returnCard(Card card, Deck deck) {
+        if (card == null || deck == null) {
+            return false;
+        }
+        int index = -1;
+        for (int prevIndex = 0; prevIndex < hand.length; prevIndex++) {
+            if (hand[prevIndex].equals(card) && index == -1) {
+                index = prevIndex;
+            }
+        }
+        Card[] prevHand = hand;
+        Card[] newHand = new Card[hand.length - 1];
+        int newIndex = 0;
+
+        for (int prevIndex = 0; prevIndex < prevHand.length; prevIndex++) {
+            if (prevIndex != index) {
+                newHand[newIndex] = prevHand[prevIndex];
+                newIndex++;
+            }
+        }
+        hand = newHand;
+        deck.addCard(card); //adds card back to the deck
+        return true;
+    }
+    public String toString() {
+        String result = name + ", " + age + ", ";
+        for (int i = 0; i < hand.length; i ++) {
+            result = result + hand[i];
+            if (i != hand.length - 1) {
+                result = result + ", ";
+            }
+        }
+        return result;
     }
 }
 
