@@ -46,6 +46,13 @@ public class ExampleClass {
         System.out.println(testDeck3.size());
         testDeck3.addCard(new Card("King", "Hearts", 13));
         System.out.println(testDeck3.size()); //size increase by 1; addCard. it should put new card at the bottom of deck.
+        Deck testDeck4 = new Deck(arr);
+        System.out.println(testDeck4.size());
+        Card c5 = new Card("3", "Spades", 2);
+        Card c6 = new Card("7", "Diamonds", 3);
+        Card[] newCards = {c5, c6};
+        testDeck4.reshuffle(newCards);      
+        System.out.println(testDeck4.size());
         /* current output: 
         Test
         Queen of Hearts
@@ -76,6 +83,8 @@ public class ExampleClass {
         51
         4
         5
+        4
+        6
 
         Note: Shuffling is random so it'll print different outputs every time and this is js one instance
         */
@@ -176,6 +185,7 @@ class Deck {
             if (newCards == null || newCards.length == 0) {
                 shuffle();
                 return;
+            }
                 Card[] newArr = new Card[cards.length + newCards.length];
                 for (int i = 0; i < cards.length; i++) {
                     newArr[i] = cards[i];
@@ -183,6 +193,23 @@ class Deck {
                 for (int k = 0; k < newCards.length; k++) {
                     newArr[cards.length + k] = newCards[k];
                 }
-            }
+                cards = newArr;
+                shuffle();
+            
         }
+    class DiscardPile {
+        private Card[] pile; //holds discarded cards
+        public DiscardPile(Card[] cards) {
+            pile = cards;
+        }
+        public DiscardPile() {
+            pile = new Card[0]; //empty disc. pile
+        }
+        public int size() {
+            return pile.length;
+        }
+        public Card[] getPile() {
+            return pile;
+        }
+    }
 }
