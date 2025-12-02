@@ -74,6 +74,16 @@ public class ExampleClass {
         stringTestpile.addCard(c3);
         System.out.println("Discard Pile has: " + stringTestpile.toString());
 
+        Player one = new Player("Kafka", 23);
+        Player two = new Player("Firefly", 17, arr);
+        System.out.println("Player one: " + one.getName() + ", " + one.getAge() + ", " + one.size());
+        System.out.println("Player two: " + two.getName() + ", " + two.getAge() + ", " + two.size());
+
+        System.out.println("Player 1's hand size: " + one.size());
+        one.draw(testDeck);
+        one.draw(testDeck); //draws two times
+        System.out.println("Player 1's new hand size: " + one.size());
+
         /* current output: 
         Test
         Queen of Hearts
@@ -93,7 +103,7 @@ public class ExampleClass {
         Queen of Hearts
         Jack of Diamonds
         Deck size: 4
-        Drawn: 10 of Spades
+        Drawn: 10 of Spades *random*
         Current deck size: 3
         52
         Ace of Hearts
@@ -112,9 +122,13 @@ public class ExampleClass {
         0
         Ace of Clubs
         10 of Spades
-        Discard Pile has: *whatever cards were discarded.*
+        Discard Pile has: Queen of Hearts, Ace of Clubs, 10 of Spades
+        Player one: Kafka, 23, 0
+        Player two: Firefly, 17, 4
+        Player 1's hand size: 0
+        Player 1's new hand size: 2
 
-        Note: Shuffling is random so it'll print different outputs every time and this is js one instance
+        *random* Note: Shuffling is random so it'll print different outputs every time and this is just one instance
         */
     }
 	
@@ -299,5 +313,46 @@ class Deck {
             return result;
         }
     }
+class Player {
+    private String name;
+    private int age;
+    private Card[] hand;
+
+    public Player(String n, int a, Card[] h) {
+        name = n;
+        age = a;
+        hand = h;
+    }
+    public Player(String n, int a) {
+        name = n;
+        age = a;
+        hand = new Card[0];
+    }
+    public String getName(){
+        return name;
+    }
+    public int getAge(){
+        return age;
+    }
+    public Card[] getHand() {
+        return hand;
+    }
+    public int size() {
+        return hand.length;
+    }
+    public void draw(Deck deck) {
+        Card drawn = deck.draw(); //removes top card from deck
+        if (drawn == null) {
+            return;
+        }
+        Card[] newHand = new Card[hand.length + 1];
+        for(int i = 0; i < hand.length; i ++) {
+        newHand[i] = hand[i];
+        }
+    newHand[hand.length] = drawn;
+    hand = newHand;
+    }
+}
+
 
     
