@@ -1,8 +1,9 @@
 
-//option 3 or 2 (Still deciding)
+//Option: 2 (up to 90%)
 /* Sources : https://www.britannica.com/topic/playing-card/National-decks 
 https://intranet.missouriwestern.edu/cas/wp-content/uploads/sites/17/2020/05/Standard-Deck-of-Cards.pdf
 https://stackoverflow.com/questions/65115441/java-shuffle-deck-using-math-random */
+
 public class ExampleClass {
     public static void main(String[] args) {
         System.out.println("Test");
@@ -53,6 +54,18 @@ public class ExampleClass {
         Card[] newCards = {c5, c6};
         testDeck4.reshuffle(newCards);      
         System.out.println(testDeck4.size());
+        DiscardPile discPile = new DiscardPile(); 
+        discPile.addCard(c);
+        System.out.println(discPile.removeCard(c));
+        System.out.println(discPile.size());
+
+        DiscardPile discPile2 = new DiscardPile();
+        discPile2.addCard(c2);
+        discPile2.addCard(c3);
+        Card[] removed = discPile2.removeAll();
+        System.out.println(removed.length);
+        System.out.println(discPile2.size());
+
         /* current output: 
         Test
         Queen of Hearts
@@ -85,6 +98,10 @@ public class ExampleClass {
         5
         4
         6
+        Queen of Hearts
+        0
+        2
+        0
 
         Note: Shuffling is random so it'll print different outputs every time and this is js one instance
         */
@@ -197,6 +214,7 @@ class Deck {
                 shuffle();
             
         }
+    }
     class DiscardPile {
         private Card[] pile; //holds discarded cards
         public DiscardPile(Card[] cards) {
@@ -248,6 +266,13 @@ class Deck {
             pile = newArr;
             return removed;
         }
+        public Card[] removeAll() {
+            if(pile.length == 0) {
+                return new Card[0]; //when pile is empty, returns empty array
+            }
+            Card[] discardedCards = pile; //supposed to save current pile
+            pile = new Card[0];
+            return discardedCards; //returns og pile
+        }
     }
     
-}
