@@ -65,6 +65,14 @@ public class ExampleClass {
         Card[] removed = discPile2.removeAll();
         System.out.println(removed.length);
         System.out.println(discPile2.size());
+        System.out.println(removed[0]);
+        System.out.println(removed[1]);
+
+        DiscardPile stringTestpile = new DiscardPile();
+        stringTestpile.addCard(c);
+        stringTestpile.addCard(c2);
+        stringTestpile.addCard(c3);
+        System.out.println("Discard Pile has: " + stringTestpile.toString());
 
         /* current output: 
         Test
@@ -79,7 +87,7 @@ public class ExampleClass {
         Ace of Clubs
         10 of Spades
         Jack of Diamonds
-        After shuffling:
+        After shuffling: *random*
         10 of Spades
         Ace of Clubs
         Queen of Hearts
@@ -92,8 +100,8 @@ public class ExampleClass {
         2 of Hearts
         3 of Hearts
         4 of Hearts
-        Shuffled! The top card drawn is: King of Hearts
-        51
+        Shuffled! The top card drawn is: King of Hearts *random*
+        51 
         4
         5
         4
@@ -102,6 +110,9 @@ public class ExampleClass {
         0
         2
         0
+        Ace of Clubs
+        10 of Spades
+        Discard Pile has: *whatever cards were discarded.*
 
         Note: Shuffling is random so it'll print different outputs every time and this is js one instance
         */
@@ -274,5 +285,19 @@ class Deck {
             pile = new Card[0];
             return discardedCards; //returns og pile
         }
+        public String toString() {
+            if (pile.length ==0) {
+            return ""; //if the pile is empty, returns a blank
+            }
+            String result = "";
+            for (int i = 0; i < pile.length; i ++) {
+                result = result + pile[i];
+                if (i != pile.length - 1) {
+                    result = result + ", "; //adds a comma only if the card isnt the last one
+                }
+            }
+            return result;
+        }
     }
+
     
