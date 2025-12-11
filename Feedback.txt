@@ -1,10 +1,11 @@
 K(30%): 99%
-I(30%): 95
+I(30%): 94%
 C(10%): 50%
-A(30%): 98
-92.6% of 90 - 83.34%
+A(30%): 98%
+92.3% of 90 - 83.07%
 Missing period - discard pile, player
 Ensure you don’t get null values in the first place so you don’t have check them in every single method.
 Would be easier to use an ArrayList behind the scenes instead of manually having to make new arrays all the time.
 Missing JavaDocs!
+Make sure to use a different file for every class in the future!
 Good Work Varshini
